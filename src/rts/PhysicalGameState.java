@@ -53,9 +53,11 @@ public class PhysicalGameState {
      */
     public static PhysicalGameState load(String fileName, UnitTypeTable utt) throws JDOMException, IOException, Exception {
         try {
+        	System.out.println(fileName);
             return PhysicalGameState.fromXML(new SAXBuilder().build(fileName).getRootElement(), utt);
         } catch (IllegalArgumentException | FileNotFoundException e) {
             // Attempt to load the resource as a resource stream.
+        	System.out.println("Cai no catch");
             try (InputStream is = PhysicalGameState.class.getClassLoader().getResourceAsStream(fileName)) {
                 return fromXML((new SAXBuilder()).build(is).getRootElement(), utt);
             } catch (IllegalArgumentException var3) {

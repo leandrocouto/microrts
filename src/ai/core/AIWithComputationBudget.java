@@ -1,5 +1,10 @@
 package ai.core;
 
+import java.util.List;
+
+import rts.GameState;
+import rts.PlayerAction;
+
 /**
  * An "AIWithComputationBudget" is one that is given a limit in the 
  * amount of CPU it can use per game frame. This limit is specified in either:
@@ -12,7 +17,7 @@ package ai.core;
  * @author santi
  *
  */
-public abstract class AIWithComputationBudget extends AI {
+public class AIWithComputationBudget extends AI {
 	
 	/**
 	 * Number of milisseconds the function {@link #getAction(int, rts.GameState)} 
@@ -70,5 +75,29 @@ public abstract class AIWithComputationBudget extends AI {
     public void setIterationsBudget(int iterations) {
         ITERATIONS_BUDGET = iterations;
     }
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public PlayerAction getAction(int player, GameState gs) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AI clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ParameterSpecification> getParameters() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }

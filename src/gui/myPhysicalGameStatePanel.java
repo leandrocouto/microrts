@@ -27,7 +27,7 @@ import util.Pair;
  *
  * @author santi
  */
-public class PhysicalGameStatePanel extends JPanel {
+public class myPhysicalGameStatePanel extends JPanel {
     public static int COLORSCHEME_BLACK = 1;
     public static int COLORSCHEME_WHITE = 2;
 
@@ -56,12 +56,12 @@ public class PhysicalGameStatePanel extends JPanel {
 
     int colorScheme = COLORSCHEME_BLACK;
 
-    public PhysicalGameStatePanel(GameState a_gs) {
+    public myPhysicalGameStatePanel(GameState a_gs) {
         this(a_gs, new SimpleEvaluationFunction());
     }
 
 
-    public PhysicalGameStatePanel(PhysicalGameStatePanel pgsp) {
+    public myPhysicalGameStatePanel(myPhysicalGameStatePanel pgsp) {
         this(pgsp.gs, pgsp.evalFunction);
         fullObservability = pgsp.fullObservability;
         drawFromPerspectiveOfPlayer = pgsp.drawFromPerspectiveOfPlayer;
@@ -71,7 +71,7 @@ public class PhysicalGameStatePanel extends JPanel {
         }
     }
 
-    public PhysicalGameStatePanel(GameState a_gs, EvaluationFunction evalFunction) {
+    public myPhysicalGameStatePanel(GameState a_gs, EvaluationFunction evalFunction) {
         gs = a_gs;
         if (gs!=null) {
             pogs[0] = new PartiallyObservableGameState(gs, 0);
@@ -84,7 +84,7 @@ public class PhysicalGameStatePanel extends JPanel {
     }
 
 
-    public PhysicalGameStatePanel(GameState a_gs, EvaluationFunction evalFunction, int cs) {
+    public myPhysicalGameStatePanel(GameState a_gs, EvaluationFunction evalFunction, int cs) {
         gs = a_gs;
         if (gs!=null) {
             pogs[0] = new PartiallyObservableGameState(gs, 0);
@@ -97,36 +97,36 @@ public class PhysicalGameStatePanel extends JPanel {
         if (colorScheme==COLORSCHEME_WHITE) setBackground(Color.WHITE);
     }
 
-    public static PhysicalGameStateJFrame newVisualizer(GameState a_gs) {
+    public static myPhysicalGameStateJFrame newVisualizer(GameState a_gs) {
         return newVisualizer(a_gs, 320, 320, false, new SimpleEvaluationFunction(), COLORSCHEME_BLACK);
     }
 
-    public static PhysicalGameStateJFrame newVisualizer(GameState a_gs, boolean a_showVisibility) {
+    public static myPhysicalGameStateJFrame newVisualizer(GameState a_gs, boolean a_showVisibility) {
         return newVisualizer(a_gs, 320, 320, a_showVisibility, new SimpleEvaluationFunction(), COLORSCHEME_BLACK);
     }
 
-    public static PhysicalGameStateJFrame newVisualizer(GameState a_gs, int dx, int dy) {
+    public static myPhysicalGameStateJFrame newVisualizer(GameState a_gs, int dx, int dy) {
         return newVisualizer(a_gs, dx, dy, false, new SimpleEvaluationFunction(), COLORSCHEME_BLACK);
     }
 
-    public static PhysicalGameStateJFrame newVisualizer(GameState a_gs, int dx, int dy, boolean a_showVisibility) {
+    public static myPhysicalGameStateJFrame newVisualizer(GameState a_gs, int dx, int dy, boolean a_showVisibility) {
         return newVisualizer(a_gs, dx, dy, a_showVisibility, new SimpleEvaluationFunction(), COLORSCHEME_BLACK);
     }
 
-    public static PhysicalGameStateJFrame newVisualizer(GameState a_gs, int dx, int dy, boolean a_showVisibility, int cs) {
+    public static myPhysicalGameStateJFrame newVisualizer(GameState a_gs, int dx, int dy, boolean a_showVisibility, int cs) {
         return newVisualizer(a_gs, dx, dy, a_showVisibility, new SimpleEvaluationFunction(), cs);
     }
 
-    public static PhysicalGameStateJFrame newVisualizer(GameState a_gs, int dx, int dy, EvaluationFunction evalFunction) {
+    public static myPhysicalGameStateJFrame newVisualizer(GameState a_gs, int dx, int dy, EvaluationFunction evalFunction) {
         return newVisualizer(a_gs, dx, dy, false, evalFunction, COLORSCHEME_BLACK);
     }
 
-    public static PhysicalGameStateJFrame newVisualizer(GameState a_gs, int dx, int dy, boolean a_showVisibility, EvaluationFunction evalFunction, int cs) {
-        PhysicalGameStatePanel ad = new PhysicalGameStatePanel(a_gs, evalFunction, cs);
+    public static myPhysicalGameStateJFrame newVisualizer(GameState a_gs, int dx, int dy, boolean a_showVisibility, EvaluationFunction evalFunction, int cs) {
+        myPhysicalGameStatePanel ad = new myPhysicalGameStatePanel(a_gs, evalFunction, cs);
         ad.fullObservability = !a_showVisibility;
 
-        PhysicalGameStateJFrame frame = null;
-        frame = new PhysicalGameStateJFrame("Game State Visualizer", dx, dy, ad);
+        myPhysicalGameStateJFrame frame = null;
+        frame = new myPhysicalGameStateJFrame("Game State Visualizer", dx, dy, ad);
         return frame;
     }
 
@@ -235,7 +235,7 @@ public class PhysicalGameStatePanel extends JPanel {
 
 
     public static void draw(Graphics2D g2d,
-                            PhysicalGameStatePanel panel,
+                            myPhysicalGameStatePanel panel,
                             int dx,int dy,
                             GameState gs,
                             PartiallyObservableGameState pogs[],
