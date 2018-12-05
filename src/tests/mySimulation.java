@@ -1,7 +1,3 @@
- /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package tests;
 
 import ai.core.AI;
@@ -10,6 +6,7 @@ import ai.evaluation.EvaluationFunction;
 import ai.evaluation.SimpleEvaluationFunction;
 import ai.puppet.PuppetSearchMCTS;
 import ai.puppet.SingleChoiceConfigurableScript;
+import botCompeticao.ai.competition.tiamat.Tiamat;
 import ai.*;
 import ai.abstraction.HeavyRush;
 import ai.abstraction.LightRush;
@@ -70,8 +67,10 @@ public class mySimulation {
 	
     public static void main(String args[]) throws Exception {
         UnitTypeTable utt = new UnitTypeTable();
+        Context.getInstance().setUtt(utt);
         PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\8x8\\basesWorkers8x8.xml", utt);
-//        PhysicalGameState pgs = MapGenerator.basesWorkers8x8Obstacle();
+        //PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\16x16\\basesWorkers16x16.xml", utt);
+        //PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\24x24\\basesWorkers24x24.xml", utt);
 
         GameState gs = new GameState(pgs, utt);
         int MAXCYCLES = 5000;
@@ -79,14 +78,15 @@ public class mySimulation {
         boolean gameover = false;
         
         //AI ai1 = new WorkerRush(utt, new BFSPathFinding());   
-        AI ai1 = new LightRush(utt, new BFSPathFinding()); 
-        AI ai2 = new RandomBiasedAI();
+        AI ai1 = new LightRush(utt, new BFSPathFinding());
+        //AI ai1 = new Tiamat(utt);
+        //AI ai2 = new RandomBiasedAI();
         
         JFrame w = myPhysicalGameStatePanel.newVisualizer(gs,1280,640,false,PhysicalGameStatePanel.COLORSCHEME_BLACK);
         
         while(Context.getInstance().getSaveClicado() == false)
         	Thread.sleep(1000);
-        //Botão Save foi clicado, então deve-se criar o objeto da IA
+        //Botão Save foi clicado, então deve-se criar os objetos das IAs
         
         AIWithComputationBudget[] minhaIA = new AIWithComputationBudget[5];// = new AIWithComputationBudget(0,0);
         for(int i = 0; i < 5; i++)
@@ -109,7 +109,7 @@ public class mySimulation {
 	                    }
 	                }
 	                
-			        /** Compilation Requirements *********************************************************************************************/
+			        // Compilation Requirements
 			        DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
 			        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 			        StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null);
@@ -129,9 +129,9 @@ public class mySimulation {
 					    null, 
 					    compilationUnit);
 					
-					/********************************************************************************************* Compilation Requirements **/
+					//Compilation Requirements
 	                if (task.call()) {
-	                    /** Load and execute *************************************************************************************************/
+	                    //Load and execute
 	                    // Create a new custom class loader, pointing to the directory that contains the compiled
 	                    // classes, this should point to the top of the package structure!
 	                    URLClassLoader classLoader = new URLClassLoader(new URL[]{new File("./").toURI().toURL()});
@@ -142,9 +142,9 @@ public class mySimulation {
 	                    // Santity check
 	                    if (obj instanceof AIWithComputationBudget) {
 	                        // Cast to AIWithComputationBudget
-	                    	minhaIA[0] = (AIWithComputationBudget)obj;
+	                    	minhaIA[i] = (AIWithComputationBudget)obj;
 	                    }
-	                    /************************************************************************************************* Load and execute **/
+	                    //Load and execute
 	                } else {
 	                    for (Diagnostic<? extends JavaFileObject> diagnostic : diagnostics.getDiagnostics()) {
 	                        System.out.format("Error on line %d in %s%n",
@@ -161,19 +161,16 @@ public class mySimulation {
 	        }
         }	
         
-        //AI ai3 = minhaIA[0];
-        AI ai3 = new PuppetSearchMCTS(
+        
+        AI ai2 = new PuppetSearchMCTS(
                 TIME, MAX_PLAYOUTS,
                 PUPPET_PLAN_TIME, PUPPET_PLAN_PLAYOUTS,
                 PLAYOUT_TIME, PLAYOUT_TIME,
                 new RandomBiasedAI(),
                 new SingleChoiceConfigurableScript(getPathFinding(),
-                        new AI[]{new WorkerRush(utt, getPathFinding()),
-                            new LightRush(utt, getPathFinding()),
-                            new RangedRush(utt, getPathFinding()),
-                            new HeavyRush(utt, getPathFinding())}),
+                        new AI[]{minhaIA[0],minhaIA[1],minhaIA[2],minhaIA[3], minhaIA[4]}),
                 getEvaluationFunction());
-        	
+        
         while(Context.getInstance().getRunClicado() == false)
         	Thread.sleep(1000);
         
@@ -182,7 +179,7 @@ public class mySimulation {
         do{
             if (System.currentTimeMillis()>=nextTimeToUpdate) {
                 PlayerAction pa1 = ai1.getAction(0, gs);
-                PlayerAction pa2 = ai3.getAction(1, gs);
+                PlayerAction pa2 = ai2.getAction(1, gs);
                 gs.issueSafe(pa1);
                 gs.issueSafe(pa2);
 
