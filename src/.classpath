@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path=""/>
-	<classpathentry kind="lib" path="C:/Users/leand/Documents/Eclipse Workspace/microrts/lib/jdom.jar"/>
-	<classpathentry kind="lib" path="C:/Users/leand/Documents/Eclipse Workspace/microrts/lib/minimal-json-0.9.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/leand/Documents/Eclipse Workspace/microrts/lib/weka.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Leandro/Documents/Eclipse Workspace/microrts/lib/jdom.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Leandro/Documents/Eclipse Workspace/microrts/lib/minimal-json-0.9.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Leandro/Documents/Eclipse Workspace/microrts/lib/weka.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

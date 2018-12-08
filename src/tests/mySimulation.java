@@ -66,11 +66,15 @@ public class mySimulation {
     private static int PUPPET_PLAN_PLAYOUTS = -1;
 	
     public static void main(String args[]) throws Exception {
+    	//Inicialmente todos os checkBoxes estao selecionados
+        for(int i = 0; i < 5; i++)
+        	Context.getInstance().setCheckBoxScript(i, true);
+        
         UnitTypeTable utt = new UnitTypeTable();
         Context.getInstance().setUtt(utt);
-        PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\8x8\\basesWorkers8x8.xml", utt);
+        //PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\8x8\\basesWorkers8x8.xml", utt);
         //PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\16x16\\basesWorkers16x16.xml", utt);
-        //PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\24x24\\basesWorkers24x24.xml", utt);
+        PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\24x24\\basesWorkers24x24.xml", utt);
 
         GameState gs = new GameState(pgs, utt);
         int MAXCYCLES = 5000;
@@ -80,7 +84,7 @@ public class mySimulation {
         //AI ai1 = new WorkerRush(utt, new BFSPathFinding());   
         AI ai1 = new LightRush(utt, new BFSPathFinding());
         //AI ai1 = new Tiamat(utt);
-        //AI ai2 = new RandomBiasedAI();
+        //AI ai1 = new RandomBiasedAI();
         
         JFrame w = myPhysicalGameStatePanel.newVisualizer(gs,1280,640,false,PhysicalGameStatePanel.COLORSCHEME_BLACK);
         
@@ -88,7 +92,7 @@ public class mySimulation {
         	Thread.sleep(1000);
         //Botão Save foi clicado, então deve-se criar os objetos das IAs
         
-        AIWithComputationBudget[] minhaIA = new AIWithComputationBudget[5];// = new AIWithComputationBudget(0,0);
+        AIWithComputationBudget[] minhaIA = new AIWithComputationBudget[5];
         for(int i = 0; i < 5; i++)
         	minhaIA[i] = new AIWithComputationBudget(0,0);
         
@@ -111,9 +115,14 @@ public class mySimulation {
 	                
 			        // Compilation Requirements
 			        DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
+			        //(Des)comente essa linha abaixo se houver erro de compilador nao encontrado (use o path apropriado)
+			        System.setProperty("java.home", "C:\\Program Files\\Java\\jdk1.8.0_191");
 			        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+			        if(compiler == null)
+			        	System.out.println("Compilador nao encontrado. Use JDK ao inves de JRE.");
 			        StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null);
-			
+			        
+
 			        // This sets up the class path that the compiler will use.
 			        // I've added the .jar file that contains the DoStuff interface within in it...
 			        List<String> optionList = new ArrayList<String>();
@@ -162,13 +171,24 @@ public class mySimulation {
         }	
         
         
+        //Cria um vetor de IA do tamanho de acordo com o numero de checkBoxes selecionados
+        AI[] IASelecionadas = new AI[Context.getInstance().getNumeroCheckBoxAtivado()];
+        //Preenche com as IAs assinaladas
+        int index = 0;
+        for(int i = 0; i < 5; i++) {
+        	if(Context.getInstance().getCheckBoxScripts()[i] == true) {
+        		System.out.println("Entrei aqui " + i);
+        		IASelecionadas[index] = minhaIA[i];
+        		index++;
+        	}
+        }
         AI ai2 = new PuppetSearchMCTS(
                 TIME, MAX_PLAYOUTS,
                 PUPPET_PLAN_TIME, PUPPET_PLAN_PLAYOUTS,
                 PLAYOUT_TIME, PLAYOUT_TIME,
                 new RandomBiasedAI(),
                 new SingleChoiceConfigurableScript(getPathFinding(),
-                        new AI[]{minhaIA[0],minhaIA[1],minhaIA[2],minhaIA[3], minhaIA[4]}),
+                		IASelecionadas),
                 getEvaluationFunction());
         
         while(Context.getInstance().getRunClicado() == false)

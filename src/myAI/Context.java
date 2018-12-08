@@ -13,7 +13,14 @@ public class Context {
     private boolean runFoiClicado = false;
     private String[] script = new String[5];
     private UnitTypeTable utt = new UnitTypeTable();
+    private boolean[] checkBoxScript = new boolean[5];
     
+    public boolean[] getCheckBoxScripts() {
+    	return checkBoxScript;
+    }
+    public void setCheckBoxScript(int index, boolean value) {
+    	checkBoxScript[index] = value;
+    }
     public boolean getSaveClicado() {
     	return saveFoiClicado;
     }
@@ -45,6 +52,15 @@ public class Context {
 	public void setUtt(UnitTypeTable utt) {
 		this.utt = utt;
 	}
+
+	public int getNumeroCheckBoxAtivado() {
+		int numeroCheckBoxAtivado = 0;
+		for(int i = 0; i < 5; i++)
+			if(checkBoxScript[i] == true)
+				numeroCheckBoxAtivado++;
+		return numeroCheckBoxAtivado;
+	}
+
     
     
 }

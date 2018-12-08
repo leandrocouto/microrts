@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -65,7 +68,7 @@ public class myPhysicalGameStateJFrame extends JFrame {
         setLayout(new GridLayout(1,2));
         add(panel); //Adiciona o mapa ao lado esquerdo
         JPanel ladoDireito = new JPanel();
-        ladoDireito.setLayout(new GridLayout(2,1));
+        ladoDireito.setLayout(new GridLayout(3,1));
         
         JTabbedPane tabbedPane = new JTabbedPane();
                
@@ -293,57 +296,6 @@ public class myPhysicalGameStateJFrame extends JFrame {
 		"    }"
 		+ "}");
 
-        /*editor0.setText("package myAI;\n" +
-        		"import ai.core.AI;\n" + 
-        		"import ai.core.AIWithComputationBudget;\n" + 
-        		"import ai.core.ParameterSpecification;\n" + 
-        		"\n" + 
-        		"import java.util.ArrayList;\n" + 
-        		"import java.util.List;\n" + 
-        		"\n" + 
-        		"import rts.GameState;\n" + 
-        		"import rts.PlayerAction;\n" + 
-        		"import rts.units.UnitTypeTable;\n"
-        		+ "\n"
-        		+ "public class MyNewAI_0 extends AIWithComputationBudget {\n" + 
-        		"\tUnitTypeTable m_utt = null;\n" + 
-        		"\n" +
-        		"\t//Construtor necessario para criacao de classe em tempo de execucao\n" + 
-        		"\tpublic MyNewAI_0() {\n" + 
-        		"\t\tsuper(-1,-1);\n" + 
-        		"\t}\n" + 
-        		"\t// This is the default constructor that microRTS will call:\n" + 
-        		"\tpublic MyNewAI_0(UnitTypeTable utt) {\n" + 
-        		"\t\tsuper(-1,-1);\n" + 
-        		"\t\tm_utt = utt;\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called by microRTS when it wants to create new instances of this bot (e.g., to play multiple games).\n" + 
-        		"\tpublic AI clone() {\n" + 
-        		"\t\treturn new MyNewAI_0(m_utt);\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called once at the beginning of each new game:    \n" + 
-        		"\tpublic void reset() {\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// Called by microRTS at each game cycle.\n" + 
-        		"\t// Returns the action the bot wants to execute.\n" + 
-        		"\tpublic PlayerAction getAction(int player, GameState gs) {\n" + 
-        		"\t\tPlayerAction pa = new PlayerAction();\n" + 
-        		"\t\tpa.fillWithNones(gs, player, 10);\n" + 
-        		"\t\treturn pa;\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called by the microRTS GUI to get the\n" + 
-        		"\t// list of parameters that this bot wants exposed\n" + 
-        		"\t// in the GUI.\n" + 
-        		"\tpublic List<ParameterSpecification> getParameters()\n" + 
-        		"\t{\n" + 
-        		"\t\treturn new ArrayList<>();\n" + 
-        		"\t}\n" + 
-        		"}");
-        */
         editor1.setText("package myAI;\r\n" + 
         		"import ai.abstraction.AbstractAction;\r\n" + 
         		"import ai.abstraction.AbstractionLayerAI;\r\n" + 
@@ -596,58 +548,7 @@ public class myPhysicalGameStateJFrame extends JFrame {
         		"        return parameters;\r\n" + 
         		"    }" + 
         		"}");
-        /*
-        editor1.setText("package myAI;\n" +
-        		"import ai.core.AI;\n" + 
-        		"import ai.core.AIWithComputationBudget;\n" + 
-        		"import ai.core.ParameterSpecification;\n" + 
-        		"\n" + 
-        		"import java.util.ArrayList;\n" + 
-        		"import java.util.List;\n" + 
-        		"\n" + 
-        		"import rts.GameState;\n" + 
-        		"import rts.PlayerAction;\n" + 
-        		"import rts.units.UnitTypeTable;\n"
-        		+ "\n"
-        		+ "public class MyNewAI_1 extends AIWithComputationBudget {\n" + 
-        		"\tUnitTypeTable m_utt = null;\n" + 
-        		"\n" +
-        		"\t//Construtor necessario para criacao de classe em tempo de execucao\n" + 
-        		"\tpublic MyNewAI_1() {\n" + 
-        		"\t\tsuper(-1,-1);\n" + 
-        		"\t}\n" + 
-        		"\t// This is the default constructor that microRTS will call:\n" + 
-        		"\tpublic MyNewAI_1(UnitTypeTable utt) {\n" + 
-        		"\t\tsuper(-1,-1);\n" + 
-        		"\t\tm_utt = utt;\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called by microRTS when it wants to create new instances of this bot (e.g., to play multiple games).\n" + 
-        		"\tpublic AI clone() {\n" + 
-        		"\t\treturn new MyNewAI_1(m_utt);\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called once at the beginning of each new game:    \n" + 
-        		"\tpublic void reset() {\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// Called by microRTS at each game cycle.\n" + 
-        		"\t// Returns the action the bot wants to execute.\n" + 
-        		"\tpublic PlayerAction getAction(int player, GameState gs) {\n" + 
-        		"\t\tPlayerAction pa = new PlayerAction();\n" + 
-        		"\t\tpa.fillWithNones(gs, player, 10);\n" + 
-        		"\t\treturn pa;\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called by the microRTS GUI to get the\n" + 
-        		"\t// list of parameters that this bot wants exposed\n" + 
-        		"\t// in the GUI.\n" + 
-        		"\tpublic List<ParameterSpecification> getParameters()\n" + 
-        		"\t{\n" + 
-        		"\t\treturn new ArrayList<>();\n" + 
-        		"\t}\n" + 
-        		"}");
-        */
+        
         editor2.setText("package myAI;\r\n" + 
         		"import ai.abstraction.AbstractAction;\r\n" + 
         		"import ai.abstraction.AbstractionLayerAI;\r\n" + 
@@ -887,57 +788,7 @@ public class myPhysicalGameStateJFrame extends JFrame {
         		"        return parameters;\r\n" + 
         		"    }" + 
         		"}");
-        /*
-        editor2.setText("package myAI;\n" +
-        		"import ai.core.AI;\n" + 
-        		"import ai.core.AIWithComputationBudget;\n" + 
-        		"import ai.core.ParameterSpecification;\n" + 
-        		"\n" + 
-        		"import java.util.ArrayList;\n" + 
-        		"import java.util.List;\n" + 
-        		"\n" + 
-        		"import rts.GameState;\n" + 
-        		"import rts.PlayerAction;\n" + 
-        		"import rts.units.UnitTypeTable;\n"
-        		+ "\n"
-        		+ "public class MyNewAI_2 extends AIWithComputationBudget {\n" + 
-        		"\tUnitTypeTable m_utt = null;\n" + 
-        		"\n" +
-        		"\t//Construtor necessario para criacao de classe em tempo de execucao\n" + 
-        		"\tpublic MyNewAI_2() {\n" + 
-        		"\t\tsuper(-1,-1);\n" + 
-        		"\t}\n" + 
-        		"\t// This is the default constructor that microRTS will call:\n" + 
-        		"\tpublic MyNewAI_2(UnitTypeTable utt) {\n" + 
-        		"\t\tsuper(-1,-1);\n" + 
-        		"\t\tm_utt = utt;\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called by microRTS when it wants to create new instances of this bot (e.g., to play multiple games).\n" + 
-        		"\tpublic AI clone() {\n" + 
-        		"\t\treturn new MyNewAI_2(m_utt);\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called once at the beginning of each new game:    \n" + 
-        		"\tpublic void reset() {\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// Called by microRTS at each game cycle.\n" + 
-        		"\t// Returns the action the bot wants to execute.\n" + 
-        		"\tpublic PlayerAction getAction(int player, GameState gs) {\n" + 
-        		"\t\tPlayerAction pa = new PlayerAction();\n" + 
-        		"\t\tpa.fillWithNones(gs, player, 10);\n" + 
-        		"\t\treturn pa;\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called by the microRTS GUI to get the\n" + 
-        		"\t// list of parameters that this bot wants exposed\n" + 
-        		"\t// in the GUI.\n" + 
-        		"\tpublic List<ParameterSpecification> getParameters()\n" + 
-        		"\t{\n" + 
-        		"\t\treturn new ArrayList<>();\n" + 
-        		"\t}\n" + 
-        		"}");*/
+        
         editor3.setText("package myAI;\r\n" + 
         		"import ai.abstraction.AbstractAction;\r\n" + 
         		"import ai.abstraction.AbstractionLayerAI;\r\n" + 
@@ -1189,58 +1040,7 @@ public class myPhysicalGameStateJFrame extends JFrame {
         		"        return parameters;\r\n" + 
         		"    }" + 
         		"}");
-        /*	
-        editor3.setText("package myAI;\n" +
-        		"import ai.core.AI;\n" + 
-        		"import ai.core.AIWithComputationBudget;\n" + 
-        		"import ai.core.ParameterSpecification;\n" + 
-        		"\n" + 
-        		"import java.util.ArrayList;\n" + 
-        		"import java.util.List;\n" + 
-        		"\n" + 
-        		"import rts.GameState;\n" + 
-        		"import rts.PlayerAction;\n" + 
-        		"import rts.units.UnitTypeTable;\n"
-        		+ "\n"
-        		+ "public class MyNewAI_3 extends AIWithComputationBudget {\n" + 
-        		"\tUnitTypeTable m_utt = null;\n" + 
-        		"\n" +
-        		"\t//Construtor necessario para criacao de classe em tempo de execucao\n" + 
-        		"\tpublic MyNewAI_3() {\n" + 
-        		"\t\tsuper(-1,-1);\n" + 
-        		"\t}\n" + 
-        		"\t// This is the default constructor that microRTS will call:\n" + 
-        		"\tpublic MyNewAI_3(UnitTypeTable utt) {\n" + 
-        		"\t\tsuper(-1,-1);\n" + 
-        		"\t\tm_utt = utt;\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called by microRTS when it wants to create new instances of this bot (e.g., to play multiple games).\n" + 
-        		"\tpublic AI clone() {\n" + 
-        		"\t\treturn new MyNewAI_3(m_utt);\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called once at the beginning of each new game:    \n" + 
-        		"\tpublic void reset() {\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// Called by microRTS at each game cycle.\n" + 
-        		"\t// Returns the action the bot wants to execute.\n" + 
-        		"\tpublic PlayerAction getAction(int player, GameState gs) {\n" + 
-        		"\t\tPlayerAction pa = new PlayerAction();\n" + 
-        		"\t\tpa.fillWithNones(gs, player, 10);\n" + 
-        		"\t\treturn pa;\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called by the microRTS GUI to get the\n" + 
-        		"\t// list of parameters that this bot wants exposed\n" + 
-        		"\t// in the GUI.\n" + 
-        		"\tpublic List<ParameterSpecification> getParameters()\n" + 
-        		"\t{\n" + 
-        		"\t\treturn new ArrayList<>();\n" + 
-        		"\t}\n" + 
-        		"}");
-        		*/
+        
         editor4.setText("package myAI;\r\n" + 
         		"import ai.abstraction.AbstractAction;\r\n" + 
         		"import ai.abstraction.AbstractionLayerAI;\r\n" + 
@@ -1499,58 +1299,6 @@ public class myPhysicalGameStateJFrame extends JFrame {
         		"        return parameters;\r\n" + 
         		"    }    " + 
         		"}");
-        /*
-        editor4.setText("package myAI;\n" +
-        		"import ai.core.AI;\n" + 
-        		"import ai.core.AIWithComputationBudget;\n" + 
-        		"import ai.core.ParameterSpecification;\n" + 
-        		"\n" + 
-        		"import java.util.ArrayList;\n" + 
-        		"import java.util.List;\n" + 
-        		"\n" + 
-        		"import rts.GameState;\n" + 
-        		"import rts.PlayerAction;\n" + 
-        		"import rts.units.UnitTypeTable;\n"
-        		+ "\n"
-        		+ "public class MyNewAI_4 extends AIWithComputationBudget {\n" + 
-        		"\tUnitTypeTable m_utt = null;\n" + 
-        		"\n" +
-        		"\t//Construtor necessario para criacao de classe em tempo de execucao\n" + 
-        		"\tpublic MyNewAI_4() {\n" + 
-        		"\t\tsuper(-1,-1);\n" + 
-        		"\t}\n" + 
-        		"\t// This is the default constructor that microRTS will call:\n" + 
-        		"\tpublic MyNewAI_4(UnitTypeTable utt) {\n" + 
-        		"\t\tsuper(-1,-1);\n" + 
-        		"\t\tm_utt = utt;\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called by microRTS when it wants to create new instances of this bot (e.g., to play multiple games).\n" + 
-        		"\tpublic AI clone() {\n" + 
-        		"\t\treturn new MyNewAI_4(m_utt);\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called once at the beginning of each new game:    \n" + 
-        		"\tpublic void reset() {\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// Called by microRTS at each game cycle.\n" + 
-        		"\t// Returns the action the bot wants to execute.\n" + 
-        		"\tpublic PlayerAction getAction(int player, GameState gs) {\n" + 
-        		"\t\tPlayerAction pa = new PlayerAction();\n" + 
-        		"\t\tpa.fillWithNones(gs, player, 10);\n" + 
-        		"\t\treturn pa;\n" + 
-        		"\t}\n" + 
-        		"\n" + 
-        		"\t// This will be called by the microRTS GUI to get the\n" + 
-        		"\t// list of parameters that this bot wants exposed\n" + 
-        		"\t// in the GUI.\n" + 
-        		"\tpublic List<ParameterSpecification> getParameters()\n" + 
-        		"\t{\n" + 
-        		"\t\treturn new ArrayList<>();\n" + 
-        		"\t}\n" + 
-        		"}");
-        		*/
         
         JScrollPane scrollScript0 = new JScrollPane(editor0);
         JScrollPane scrollScript1 = new JScrollPane(editor1);
@@ -1589,6 +1337,83 @@ public class myPhysicalGameStateJFrame extends JFrame {
         botoes.add(save);
         botoes.add(run);
         ladoDireito.add(botoes);
+        
+        JPanel checkBoxes = new JPanel(); //Armazena os checkboxes
+        JCheckBox checkBox_0 = new JCheckBox("Script 0");
+        JCheckBox checkBox_1 = new JCheckBox("Script 1");
+        JCheckBox checkBox_2 = new JCheckBox("Script 2");
+        JCheckBox checkBox_3 = new JCheckBox("Script 3");
+        JCheckBox checkBox_4 = new JCheckBox("Script 4");
+        checkBox_0.setSelected(true);
+        checkBox_1.setSelected(true);
+        checkBox_2.setSelected(true);
+        checkBox_3.setSelected(true);
+        checkBox_4.setSelected(true);
+        checkBox_0.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED) {
+                    Context.getInstance().setCheckBoxScript(0, true);
+                }
+                else {
+                	Context.getInstance().setCheckBoxScript(0, false);
+                }
+            }
+        });
+        checkBox_1.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED) {
+                	System.out.println("Fui selecionado");
+                	Context.getInstance().setCheckBoxScript(1, true);
+                }
+                else {
+                	System.out.println("Nao Fui selecionado");
+                	Context.getInstance().setCheckBoxScript(1, false);
+                }
+            }
+        });
+        checkBox_2.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED) {
+                	Context.getInstance().setCheckBoxScript(2, true);
+                }
+                else {
+                	Context.getInstance().setCheckBoxScript(2, false);
+                }
+            }
+        });
+        checkBox_3.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED) {
+                	Context.getInstance().setCheckBoxScript(3, true);
+                }
+                else {
+                	Context.getInstance().setCheckBoxScript(3, false);
+                }
+            }
+        });
+        checkBox_4.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED) {
+                	Context.getInstance().setCheckBoxScript(4, true);
+                }
+                else {
+                	Context.getInstance().setCheckBoxScript(4, false);
+                }
+            }
+        });
+        checkBoxes.add(checkBox_0);
+        checkBoxes.add(checkBox_1);
+        checkBoxes.add(checkBox_2);
+        checkBoxes.add(checkBox_3);
+        checkBoxes.add(checkBox_4);
+        
+        
+        ladoDireito.add(checkBoxes); //Adiciona as checBoxes ao pane lateral
         
         add(ladoDireito); //Adiciona o pane direito à janela
         pack();
