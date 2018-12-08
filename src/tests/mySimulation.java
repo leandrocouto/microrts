@@ -148,7 +148,7 @@ public class mySimulation {
 	                    Class<?> loadedClass = classLoader.loadClass("myAI.MyNewAI_"+i);
 	                    // Create a new instance...
 	                    Object obj = loadedClass.newInstance();
-	                    // Santity check
+	                    // Sanity check
 	                    if (obj instanceof AIWithComputationBudget) {
 	                        // Cast to AIWithComputationBudget
 	                    	minhaIA[i] = (AIWithComputationBudget)obj;
@@ -177,7 +177,6 @@ public class mySimulation {
         int index = 0;
         for(int i = 0; i < 5; i++) {
         	if(Context.getInstance().getCheckBoxScripts()[i] == true) {
-        		System.out.println("Entrei aqui " + i);
         		IASelecionadas[index] = minhaIA[i];
         		index++;
         	}
@@ -187,8 +186,7 @@ public class mySimulation {
                 PUPPET_PLAN_TIME, PUPPET_PLAN_PLAYOUTS,
                 PLAYOUT_TIME, PLAYOUT_TIME,
                 new RandomBiasedAI(),
-                new SingleChoiceConfigurableScript(getPathFinding(),
-                		IASelecionadas),
+                new SingleChoiceConfigurableScript(getPathFinding(), IASelecionadas),
                 getEvaluationFunction());
         
         while(Context.getInstance().getRunClicado() == false)

@@ -1317,7 +1317,6 @@ public class myPhysicalGameStateJFrame extends JFrame {
         save.setActionCommand("save");
         save.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
-				System.out.println("Save");
 				Context.getInstance().setSaveClicado(true);
 				Context.getInstance().setScript(editor0.getText(), 0);
 				Context.getInstance().setScript(editor1.getText(), 1);
@@ -1330,7 +1329,6 @@ public class myPhysicalGameStateJFrame extends JFrame {
         run.setActionCommand("run");
         run.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
-				System.out.println("Run");
 		        Context.getInstance().setRunClicado(true);
 			} 
 		});
@@ -1364,11 +1362,9 @@ public class myPhysicalGameStateJFrame extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if(e.getStateChange() == ItemEvent.SELECTED) {
-                	System.out.println("Fui selecionado");
                 	Context.getInstance().setCheckBoxScript(1, true);
                 }
                 else {
-                	System.out.println("Nao Fui selecionado");
                 	Context.getInstance().setCheckBoxScript(1, false);
                 }
             }
