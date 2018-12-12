@@ -1310,7 +1310,7 @@ public class myPhysicalGameStateJFrame extends JFrame {
         tabbedPane.addTab("Script 2", scrollScript2);
         tabbedPane.addTab("Script 3", scrollScript3);
         tabbedPane.addTab("Script 4", scrollScript4);
-        ladoDireito.add(tabbedPane);
+        //ladoDireito.add(tabbedPane);
         JPanel botoes = new JPanel(); //Armazena os botões
         botoes.setLayout(new GridLayout(1,2));
         JButton save = new JButton("Save");
@@ -1332,7 +1332,7 @@ public class myPhysicalGameStateJFrame extends JFrame {
 		        Context.getInstance().setRunClicado(true);
 			} 
 		});
-        botoes.add(save);
+        //botoes.add(save);
         botoes.add(run);
         ladoDireito.add(botoes);
         

@@ -61,7 +61,7 @@ Random r = new Random();
 		super(new AStarPathFinding());
 		reset(Context.getInstance().getUtt());
 	}
-    
+	
     public PlayerAction getAction(int player, GameState gs) {
         PhysicalGameState pgs = gs.getPhysicalGameState();
         Player p = gs.getPlayer(player);

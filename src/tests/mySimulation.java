@@ -87,9 +87,10 @@ public class mySimulation {
         //AI ai1 = new RandomBiasedAI();
         
         JFrame w = myPhysicalGameStatePanel.newVisualizer(gs,1280,640,false,PhysicalGameStatePanel.COLORSCHEME_BLACK);
-        
+        /*
         while(Context.getInstance().getSaveClicado() == false)
         	Thread.sleep(1000);
+        */
         //Botão Save foi clicado, então deve-se criar os objetos das IAs
         
         AIWithComputationBudget[] minhaIA = new AIWithComputationBudget[5];
@@ -101,6 +102,7 @@ public class mySimulation {
 	        if (myScriptJava.getParentFile().exists() || myScriptJava.getParentFile().mkdirs()) {
 	        	
 	        	try {
+	        		/*
 	                Writer writer = null;
 	                try {
 	                    writer = new FileWriter(myScriptJava);
@@ -112,11 +114,11 @@ public class mySimulation {
 	                    } catch (Exception e) {
 	                    }
 	                }
-	                
+	                */
 			        // Compilation Requirements
 			        DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
 			        //(Des)comente essa linha abaixo se houver erro de compilador nao encontrado (use o path apropriado)
-			        System.setProperty("java.home", "C:\\Program Files\\Java\\jdk1.8.0_191");
+			        //System.setProperty("java.home", "C:\\Program Files\\Java\\jdk1.8.0_191");
 			        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 			        if(compiler == null)
 			        	System.out.println("Compilador nao encontrado. Use JDK ao inves de JRE.");
