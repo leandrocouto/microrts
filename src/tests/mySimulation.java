@@ -19,6 +19,7 @@ import gui.PhysicalGameStatePanel;
 import gui.myPhysicalGameStatePanel;
 import myAI.Context;
 
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -197,6 +198,8 @@ public class mySimulation {
         	
         long nextTimeToUpdate = System.currentTimeMillis() + PERIOD;
         do{
+        	while(Context.getInstance().getPauseClicado() == true)
+        		Thread.sleep(1);
             if (System.currentTimeMillis()>=nextTimeToUpdate) {
                 PlayerAction pa1 = ai1.getAction(0, gs);
                 PlayerAction pa2 = ai2.getAction(1, gs);

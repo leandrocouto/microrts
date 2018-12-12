@@ -1330,6 +1330,7 @@ public class myPhysicalGameStateJFrame extends JFrame {
         run.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 		        Context.getInstance().setRunClicado(true);
+		        Context.getInstance().setPauseClicado(false);
 			} 
 		});
         //botoes.add(save);
@@ -1410,6 +1411,30 @@ public class myPhysicalGameStateJFrame extends JFrame {
         
         
         ladoDireito.add(checkBoxes); //Adiciona as checBoxes ao pane lateral
+        
+        JPanel botoesControle = new JPanel(); //Armazena os botões de controle do programa (Pause, etc)
+        botoesControle.setLayout(new GridLayout(1,2));
+        JButton pause = new JButton("Pausar/Resumir");
+        pause.setActionCommand("pause");
+        pause.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				if(Context.getInstance().getPauseClicado() == false)
+					Context.getInstance().setPauseClicado(true);
+				else
+					Context.getInstance().setPauseClicado(false);
+			} 
+		});
+
+        JButton reiniciar = new JButton("Reiniciar");
+        reiniciar.setActionCommand("reiniciar");
+        reiniciar.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) {
+				Context.getInstance().setReiniciarClicado(true);
+			} 
+		});
+        botoesControle.add(pause);
+        botoesControle.add(reiniciar);
+        ladoDireito.add(botoesControle);
         
         add(ladoDireito); //Adiciona o pane direito à janela
         pack();

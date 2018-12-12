@@ -11,6 +11,8 @@ public class Context {
     
     private boolean saveFoiClicado = false;
     private boolean runFoiClicado = false;
+    private boolean pauseFoiClicado = false;
+    private boolean reiniciarFoiClicado = false;
     private String[] script = new String[5];
     private UnitTypeTable utt = new UnitTypeTable();
     private boolean[] checkBoxScript = new boolean[5];
@@ -20,6 +22,20 @@ public class Context {
     }
     public void setCheckBoxScript(int index, boolean value) {
     	checkBoxScript[index] = value;
+    }
+    public boolean getReiniciarClicado() {
+    	return reiniciarFoiClicado;
+    }
+    
+    public void setReiniciarClicado(boolean a) {
+    	reiniciarFoiClicado = a;
+    }
+    public boolean getPauseClicado() {
+    	return pauseFoiClicado;
+    }
+    
+    public void setPauseClicado(boolean a) {
+    	pauseFoiClicado = a;
     }
     public boolean getSaveClicado() {
     	return saveFoiClicado;
