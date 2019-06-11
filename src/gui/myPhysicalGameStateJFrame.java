@@ -29,6 +29,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import ai.abstraction.AbstractAction;
 import ai.abstraction.Harvest;
@@ -1409,7 +1410,7 @@ public class myPhysicalGameStateJFrame extends JFrame {
         checkBoxes.add(checkBox_3);
         checkBoxes.add(checkBox_4);
         
-        
+        checkBoxes.setBorder(new EmptyBorder(80, 10, 10, 10));
         ladoDireito.add(checkBoxes); //Adiciona as checBoxes ao pane lateral
         
         JPanel botoesControle = new JPanel(); //Armazena os botões de controle do programa (Pause, etc)

@@ -63,6 +63,7 @@ Random r = new Random();
 	}
 	
     public PlayerAction getAction(int player, GameState gs) {
+    	//System.out.println("aaa");
         PhysicalGameState pgs = gs.getPhysicalGameState();
         Player p = gs.getPlayer(player);
         PlayerAction pa = new PlayerAction();

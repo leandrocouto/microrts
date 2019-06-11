@@ -59,42 +59,8 @@ public class mySimulation {
         return new FloodFillPathFinding();
     }
 	
-    private static int TIME = 100;
-    private static int MAX_PLAYOUTS = -1;
-    private static int PLAYOUT_TIME = 100;
-
-    private static int PUPPET_PLAN_TIME = 5000;
-    private static int PUPPET_PLAN_PLAYOUTS = -1;
-	
-    public static void main(String args[]) throws Exception {
-    	//Inicialmente todos os checkBoxes estao selecionados
-        for(int i = 0; i < 5; i++)
-        	Context.getInstance().setCheckBoxScript(i, true);
-        
-        UnitTypeTable utt = new UnitTypeTable();
-        Context.getInstance().setUtt(utt);
-        //PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\8x8\\basesWorkers8x8.xml", utt);
-        //PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\16x16\\basesWorkers16x16.xml", utt);
-        PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\24x24\\basesWorkers24x24.xml", utt);
-
-        GameState gs = new GameState(pgs, utt);
-        int MAXCYCLES = 5000;
-        int PERIOD = 20;
-        boolean gameover = false;
-        
-        //AI ai1 = new WorkerRush(utt, new BFSPathFinding());   
-        AI ai1 = new LightRush(utt, new BFSPathFinding());
-        //AI ai1 = new Tiamat(utt);
-        //AI ai1 = new RandomBiasedAI();
-        
-        JFrame w = myPhysicalGameStatePanel.newVisualizer(gs,1280,640,false,PhysicalGameStatePanel.COLORSCHEME_BLACK);
-        /*
-        while(Context.getInstance().getSaveClicado() == false)
-        	Thread.sleep(1000);
-        */
-        //Botão Save foi clicado, então deve-se criar os objetos das IAs
-        
-        AIWithComputationBudget[] minhaIA = new AIWithComputationBudget[5];
+	public static AI[] compileScripts() {
+		AIWithComputationBudget[] minhaIA = new AIWithComputationBudget[5];
         for(int i = 0; i < 5; i++)
         	minhaIA[i] = new AIWithComputationBudget(0,0);
         
@@ -156,6 +122,7 @@ public class mySimulation {
 	                        // Cast to AIWithComputationBudget
 	                    	minhaIA[i] = (AIWithComputationBudget)obj;
 	                    }
+	                    classLoader.close();
 	                    //Load and execute
 	                } else {
 	                    for (Diagnostic<? extends JavaFileObject> diagnostic : diagnostics.getDiagnostics()) {
@@ -184,43 +151,84 @@ public class mySimulation {
         		index++;
         	}
         }
-        AI ai2 = new PuppetSearchMCTS(
-                TIME, MAX_PLAYOUTS,
-                PUPPET_PLAN_TIME, PUPPET_PLAN_PLAYOUTS,
-                PLAYOUT_TIME, PLAYOUT_TIME,
-                new RandomBiasedAI(),
-                new SingleChoiceConfigurableScript(getPathFinding(), IASelecionadas),
-                getEvaluationFunction());
-        
-        while(Context.getInstance().getRunClicado() == false)
-        	Thread.sleep(1000);
-        
-        	
-        long nextTimeToUpdate = System.currentTimeMillis() + PERIOD;
-        do{
-        	while(Context.getInstance().getPauseClicado() == true)
-        		Thread.sleep(1);
-            if (System.currentTimeMillis()>=nextTimeToUpdate) {
-                PlayerAction pa1 = ai1.getAction(0, gs);
-                PlayerAction pa2 = ai2.getAction(1, gs);
-                gs.issueSafe(pa1);
-                gs.issueSafe(pa2);
+        return IASelecionadas;
+	}
+    private static int TIME = 100;
+    private static int MAX_PLAYOUTS = -1;
+    private static int PLAYOUT_TIME = 100;
 
-                // simulate:
-                gameover = gs.cycle();
-                w.repaint();
-                nextTimeToUpdate+=PERIOD;
-            } else {
-                try {
-                    Thread.sleep(1);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }while(!gameover && gs.getTime()<MAXCYCLES);
-        ai1.gameOver(gs.winner());
-        ai2.gameOver(gs.winner());
-        
-        System.out.println("Game Over");
+    private static int PUPPET_PLAN_TIME = 5000;
+    private static int PUPPET_PLAN_PLAYOUTS = -1;
+	
+    public static void main(String args[]) throws Exception {
+    	JFrame w = new JFrame();
+    	do {
+    		Context.getInstance().setReiniciarClicado(false);
+	    	//Inicialmente todos os checkBoxes estao selecionados
+	        for(int i = 0; i < 5; i++)
+	        	Context.getInstance().setCheckBoxScript(i, true);
+	        
+	        UnitTypeTable utt = new UnitTypeTable();
+	        Context.getInstance().setUtt(utt);
+	        //PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\8x8\\basesWorkers8x8.xml", utt);
+	        //PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\16x16\\basesWorkers16x16.xml", utt);
+	        PhysicalGameState pgs = PhysicalGameState.load("..\\maps\\24x24\\basesWorkers24x24.xml", utt);
+	
+	        GameState gs = new GameState(pgs, utt);
+	        int MAXCYCLES = 5000;
+	        int PERIOD = 20;
+	        boolean gameover = false;
+	        
+	        //AI ai1 = new WorkerRush(utt, new BFSPathFinding());   
+	        AI ai1 = new LightRush(utt, new BFSPathFinding());
+	        //AI ai1 = new Tiamat(utt);
+	        //AI ai1 = new RandomBiasedAI();
+	        
+	        w.dispatchEvent(new WindowEvent(w, WindowEvent.WINDOW_CLOSING));
+	        w = myPhysicalGameStatePanel.newVisualizer(gs,1280,640,false,PhysicalGameStatePanel.COLORSCHEME_BLACK);
+	        
+	        //AI[] IASelecionadas = compileScripts();
+	        
+	        AI ai2 = new PuppetSearchMCTS(
+	                TIME, MAX_PLAYOUTS,
+	                PUPPET_PLAN_TIME, PUPPET_PLAN_PLAYOUTS,
+	                PLAYOUT_TIME, PLAYOUT_TIME,
+	                new RandomBiasedAI(),
+	                new SingleChoiceConfigurableScript(getPathFinding(), compileScripts()/*IASelecionadas*/),
+	                getEvaluationFunction());
+	        
+	        while(Context.getInstance().getRunClicado() == false)
+	        	Thread.sleep(1000);
+	        Context.getInstance().setRunClicado(false); 
+	        	
+	        long nextTimeToUpdate = System.currentTimeMillis() + PERIOD;
+	        do{
+	        	while(Context.getInstance().getPauseClicado() == true) {
+	        		Thread.sleep(1);
+	        	}
+	            if (System.currentTimeMillis()>=nextTimeToUpdate) {
+	                PlayerAction pa1 = ai1.getAction(0, gs);
+	                PlayerAction pa2 = ai2.getAction(1, gs);
+	                gs.issueSafe(pa1);
+	                gs.issueSafe(pa2);
+	
+	                // simulate:
+	                gameover = gs.cycle();
+	                w.repaint();
+	                nextTimeToUpdate+=PERIOD;
+	            } else {
+	                try {
+	                    Thread.sleep(1);
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }while(!gameover && gs.getTime()<MAXCYCLES && !Context.getInstance().getReiniciarClicado());
+	        ai1.gameOver(gs.winner());
+	        ai2.gameOver(gs.winner());
+	        
+	        System.out.println("Game Over");
+    	}while(Context.getInstance().getReiniciarClicado());
+    	
     }    
 }
